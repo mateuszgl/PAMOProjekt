@@ -1,5 +1,6 @@
 package com.example.pamo;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.pamo.R;
+import com.example.pamo.db.DatabaseHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -20,9 +22,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
+import entities.Location;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +48,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 search(location);
             }
         });
+        db = new DatabaseHelper(getApplicationContext());
+        Location location = new Location();
+        location.setDescrition("descriptionnn");
+        location.setName("nazwa1111");
+        location.setLatitude(13);
+        location.setLongitude(13);
+
+        db.insert(location);
+
+        Location location2 = new Location();
+        location2.setDescrition("description22nn");
+        location2.setName("nazw2222");
+        location2.setLatitude(22);
+        location2.setLongitude(22);
+
+        db.insert(location2);
+
+
     }
 
     private void search(String location){
 
-        List<Address> addressList = null;
+        List<Address> addressList;
         LatLng locationPos = new LatLng(0, 0);
+
+        for(Location l : db.getAll()){
+            Log.d("AAAAA", l.getName());
+        }
 
         if(!location.equals("")) {
             Geocoder geocoder = new Geocoder(this);
