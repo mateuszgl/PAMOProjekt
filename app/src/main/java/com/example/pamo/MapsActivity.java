@@ -1,22 +1,18 @@
 package com.example.pamo;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.pamo.db.DatabaseHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -24,12 +20,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-import com.example.pamo.entities.Location;
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private LatLng currentSearch;
+    private LatLng currentSearchLocation;
+    private static final String NO_PREVIOUS_SEARCH_ERROR = "Musisz wyszukać lokalizacje do zapisania.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +39,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Button saveButton = (Button) findViewById(R.id.save_location_button);
         final EditText mapsActivityEditText = (EditText) findViewById(R.id.maps_activity_search_text);
 
+        final Intent addLocationActivityIntent = new Intent(this, AddLocationActivity.class);
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,18 +52,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String location = mapsActivityEditText.getText().toString();
-                search(location);
+                if(currentSearchLocation!=null){
+                    addLocationActivityIntent.putExtra("latitude", currentSearchLocation.latitude);
+                    addLocationActivityIntent.putExtra("longitude", currentSearchLocation.longitude);
+                    startActivity(addLocationActivityIntent);
+                } else {
+                    Toast.makeText(MapsActivity.this, NO_PREVIOUS_SEARCH_ERROR, Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
     }
 
     private void search(String location){
 
         List<Address> addressList;
-        LatLng locationPos = new LatLng(0, 0);
 
         if(!location.equals("")) {
             Geocoder geocoder = new Geocoder(this);
@@ -74,14 +73,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             try {
                 addressList = geocoder.getFromLocationName(location, 1);
                 Address address = addressList.get(0);
-                locationPos = new LatLng(address.getLatitude(), address.getLongitude());
+                currentSearchLocation = new LatLng(address.getLatitude(), address.getLongitude());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        mMap.addMarker(new MarkerOptions().position(locationPos).title(location));
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(locationPos));
+        mMap.addMarker(new MarkerOptions().position(currentSearchLocation).title(location));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(currentSearchLocation));
     }
 
     @Override

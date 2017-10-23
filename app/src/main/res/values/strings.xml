@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">Moje miejsca</string>
     <string name="title_activity_maps">Mapa</string>
-    <string name="search_button">Wyszukaj</string>
-    <string name="save_button">Zapisz</string>
+    <string name="title_activity_list_view">Moje miejsca</string>
+    <string name="title_activity_add_location">Dodawanie miejsca</string>
+    <string name="maps_activity_search_button">Wyszukaj</string>
     <string name="maps_activity_button">Dodaj miejsce</string>
-    <string name="search_location_hint">Wpisz nazwę miejsca</string>
-    <string name="my_locations_list">Moje miejsca</string>
+    <string name="maps_activity_search_text_hint">Wpisz nazwę miejsca</string>
+    <string name="add_location_activity_description_hint">Opis miejsca</string>
+    <string name="add_location_activity_name_hint">Nazwa miejsca</string>
+    <string name="cancel_button">Anuluj</string>
+    <string name="save_button">Zapisz</string>
 </resources>

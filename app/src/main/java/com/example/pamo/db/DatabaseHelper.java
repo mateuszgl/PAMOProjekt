@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,44 +55,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME, null, contentValues);
     }
 
-    public List<String> getAllNames(){
+    public ArrayList<String> getAllNames(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor data = db.rawQuery(SELECT_ALL_QUERY, null);
-        data.moveToFirst();
+//        data.moveToFirst();
 
-        List<String> locations = new ArrayList<>();
+        ArrayList<String> locations = new ArrayList<>();
 
         while(data.moveToNext()){
             locations.add(data.getString(1));
         }
         data.close();
-
+        Log.d("AAAAAAAAA", locations.toString());
         return locations;
     }
 
     public Location getByName(String name){
         SQLiteDatabase db = this.getReadableDatabase();
+        Location location = null;
 
-        Cursor data = db.rawQuery("SELECT * FROM LOCATIONS WHERE NAME = " + name , null);
-        data.moveToFirst();
-
-        Location location = new Location();
-        location.setName(data.getString(1));
-        location.setDescrition(data.getString(4));
-        location.setLatitude(data.getDouble(2));
-        location.setLongitude(data.getDouble(3));
-
+        Cursor data = db.rawQuery("SELECT * FROM LOCATIONS WHERE NAME = \"" + name +"\"", null);
+        if (data.moveToFirst()) {
+            location = new Location();
+            location.setName(data.getString(1));
+            location.setDescrition(data.getString(4));
+            location.setLatitude(data.getDouble(2));
+            location.setLongitude(data.getDouble(3));
+        }
         data.close();
 
         return location;
-    }
-
-    public void delete(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "DROP TABLE LOCATIONS";
-
-        db.execSQL(query);
     }
 
     public void deleteLocation(String name){

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pamo.AddLocationActivity">
+
+    <TextView
+        android:id="@+id/title_activity_add_location"
+        android:text="@string/title_activity_add_location" android:layout_width="wrap_content"
+        android:textSize="30sp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp" />
+
+    <EditText
+        android:id="@+id/add_location_activity_name"
+        android:inputType="text"
+        android:layout_width="228dp"
+        android:layout_height="50dp"
+        android:hint="@string/add_location_activity_name_hint"
+        android:layout_marginTop="66dp"
+        android:layout_below="@+id/title_activity_add_location"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/add_location_activity_description"
+        android:inputType="text"
+        android:layout_width="228dp"
+        android:layout_height="50dp"
+        android:hint="@string/add_location_activity_description_hint"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/add_location_activity_name"
+        android:layout_alignStart="@+id/add_location_activity_name" />
+
+    <Button
+        android:id="@+id/add_location_activity_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_button"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/add_location_activity_description"
+        android:layout_alignEnd="@+id/add_location_activity_description" />
+
+    <Button
+        android:id="@+id/add_location_activity_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel_button"
+        android:layout_marginEnd="25dp"
+        android:layout_alignBaseline="@+id/add_location_activity_save_button"
+        android:layout_alignBottom="@+id/add_location_activity_save_button"
+        android:layout_toStartOf="@+id/add_location_activity_save_button" />
+</RelativeLayout>

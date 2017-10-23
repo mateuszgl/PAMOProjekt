@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.pamo.R;
 import com.example.pamo.db.DatabaseHelper;
 
+import java.util.ArrayList;
+
 public class ListViewActivity extends AppCompatActivity {
 
     private DatabaseHelper db;
@@ -27,7 +29,7 @@ public class ListViewActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(getApplicationContext());
 
-        final String[] names = db.getAllNames().toArray(new String[0]);
+        final ArrayList<String> names = db.getAllNames();
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, names);
@@ -39,7 +41,7 @@ public class ListViewActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                locationDetailsActivityIntent.putExtra("locationName", names[position]);
+                locationDetailsActivityIntent.putExtra("locationName", names.get(position));
                 startActivity(locationDetailsActivityIntent);
             }
         });
@@ -56,8 +58,9 @@ public class ListViewActivity extends AppCompatActivity {
                 builder.setIcon(android.R.drawable.ic_dialog_alert);
                 builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int ii) {
-                        adapter.remove(names[position]);
-                        db.deleteLocation(names[position]);
+                        adapter.remove(names.get(position));
+                        names.remove(position);
+                        db.deleteLocation(names.get(position));
                     }
                 });
 
