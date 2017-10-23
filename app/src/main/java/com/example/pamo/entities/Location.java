@@ -1,4 +1,4 @@
-package entities;
+package com.example.pamo.entities;
 
 public class Location {
 

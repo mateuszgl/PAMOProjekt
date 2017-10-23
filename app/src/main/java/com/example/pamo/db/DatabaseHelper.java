@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Location;
+import com.example.pamo.entities.Location;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
