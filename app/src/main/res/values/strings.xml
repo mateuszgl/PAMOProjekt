@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Lab1</string>
+    <string name="app_name">Moje miejsca</string>
     <string name="title_activity_maps">Mapa</string>
     <string name="search_button">Wyszukaj</string>
-    <string name="maps_activity_button">Otwórz mapy</string>
-    <string name="search_location_label">Wpisz nazwę miejsca które chcesz znaleźć</string>
+    <string name="save_button">Zapisz</string>
+    <string name="maps_activity_button">Dodaj miejsce</string>
+    <string name="search_location_hint">Wpisz nazwę miejsca</string>
+    <string name="my_locations_list">Moje miejsca</string>
 </resources>

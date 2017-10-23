@@ -1,11 +1,14 @@
 package com.example.pamo;
 
+import android.content.DialogInterface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -13,6 +16,7 @@ import com.example.pamo.db.DatabaseHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -25,7 +29,7 @@ import com.example.pamo.entities.Location;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private DatabaseHelper db;
+    private LatLng currentSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,32 +40,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        final Button changeTextButton = (Button) findViewById(R.id.search_location_button);
-        final EditText mapsActivityEditText = (EditText) findViewById(R.id.maps_activity_edit_text);
+        final Button searchButton = (Button) findViewById(R.id.search_location_button);
+        final Button saveButton = (Button) findViewById(R.id.save_location_button);
+        final EditText mapsActivityEditText = (EditText) findViewById(R.id.maps_activity_search_text);
 
-        changeTextButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String location = mapsActivityEditText.getText().toString();
                 search(location);
             }
         });
-        db = new DatabaseHelper(getApplicationContext());
-        Location location = new Location();
-        location.setDescrition("descriptionnn");
-        location.setName("nazwa1111");
-        location.setLatitude(13);
-        location.setLongitude(13);
 
-        db.insert(location);
-
-        Location location2 = new Location();
-        location2.setDescrition("description22nn");
-        location2.setName("nazw2222");
-        location2.setLatitude(22);
-        location2.setLongitude(22);
-
-        db.insert(location2);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String location = mapsActivityEditText.getText().toString();
+                search(location);
+            }
+        });
 
 
     }
@@ -70,10 +67,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         List<Address> addressList;
         LatLng locationPos = new LatLng(0, 0);
-
-        for(Location l : db.getAll()){
-            Log.d("AAAAA", l.getName());
-        }
 
         if(!location.equals("")) {
             Geocoder geocoder = new Geocoder(this);

@@ -10,9 +10,11 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/maps_activity_edit_text"
-            android:layout_width="307dp"
+            android:id="@+id/maps_activity_search_text"
+            android:inputType="text"
+            android:layout_width="228dp"
             android:layout_height="50dp"
+            android:hint="@string/search_location_hint"
             />
 
         <Button
@@ -20,6 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="@string/search_button" />
+        <Button
+            android:id="@+id/save_location_button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="@string/save_button" />
     </LinearLayout>
 
 
