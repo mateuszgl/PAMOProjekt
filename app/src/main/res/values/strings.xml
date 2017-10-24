@@ -8,6 +8,7 @@
     <string name="maps_activity_search_text_hint">Wpisz nazwę miejsca</string>
     <string name="add_location_activity_description_hint">Opis miejsca</string>
     <string name="add_location_activity_name_hint">Nazwa miejsca</string>
+    <string name="error_message">Błąd, coś poszło nie tak!</string>
     <string name="cancel_button">Anuluj</string>
     <string name="save_button">Zapisz</string>
 </resources>

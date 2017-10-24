@@ -52,14 +52,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_LONGITUDE, location.getLongitude());
         contentValues.put(COLUMN_DESCRIPTION, location.getDescrition());
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
+        db.insert(TABLE_NAME, null, contentValues);
     }
 
     public ArrayList<String> getAllNames(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor data = db.rawQuery(SELECT_ALL_QUERY, null);
-//        data.moveToFirst();
 
         ArrayList<String> locations = new ArrayList<>();
 
@@ -67,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             locations.add(data.getString(1));
         }
         data.close();
-        Log.d("AAAAAAAAA", locations.toString());
+
         return locations;
     }
 

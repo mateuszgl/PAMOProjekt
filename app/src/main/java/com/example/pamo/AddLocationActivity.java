@@ -16,9 +16,7 @@ public class AddLocationActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private static final String FIELDS_REQUIRED_ERROR = "Musisz wypełnić wszystkie pola.";
     private static final String NAME_TAKEN_ERROR = "Miejsce o tej nazwie juz istnieje.";
-    private static final String SAVED = "ZAPISANO";
-
-
+    private static final String SAVED = "Pomyślnie dodano miejsce.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +45,10 @@ public class AddLocationActivity extends AppCompatActivity {
         addLocationActivitySaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String name = addLocationActivityName.getText().toString();
                 String description = addLocationActivityDescription.getText().toString();
+
                 if(name.equals("")|| description.equals("")) {
                     Toast.makeText(AddLocationActivity.this, FIELDS_REQUIRED_ERROR, Toast.LENGTH_SHORT).show();
                 } else {
@@ -66,7 +66,6 @@ public class AddLocationActivity extends AppCompatActivity {
 
                         startActivity(mainActivityIntent);
                         Toast.makeText(AddLocationActivity.this, SAVED, Toast.LENGTH_SHORT).show();
-
                     }
                 }
             }

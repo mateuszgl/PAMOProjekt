@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,12 +26,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private LatLng currentSearchLocation;
     private static final String NO_PREVIOUS_SEARCH_ERROR = "Musisz wyszukać lokalizacje do zapisania.";
+    private static final String NO_SEARCH_QUERY_ERROR = "Podaj nazwę miejsca do wyszukania.";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -74,17 +77,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 addressList = geocoder.getFromLocationName(location, 1);
                 Address address = addressList.get(0);
                 currentSearchLocation = new LatLng(address.getLatitude(), address.getLongitude());
+
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(currentSearchLocation).title(location));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentSearchLocation, 10));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            Toast.makeText(MapsActivity.this, NO_SEARCH_QUERY_ERROR, Toast.LENGTH_SHORT).show();
         }
-
-        mMap.addMarker(new MarkerOptions().position(currentSearchLocation).title(location));
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(currentSearchLocation));
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,10 @@ import java.util.ArrayList;
 
 public class ListViewActivity extends AppCompatActivity {
 
+    public static final String ALERT_DIALOG_TITLE = "Usuwanie";
+    public static final String ALERT_DIALOG_TEXT = "Usunąć?";
+    public static final String ALERT_DIALOG_YES = "Tak";
+    public static final String ALERT_DIALOG_NO = "Nie";
     private DatabaseHelper db;
 
     @Override
@@ -53,24 +58,25 @@ public class ListViewActivity extends AppCompatActivity {
                                            final int position, long arg3) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListViewActivity.this);
-                builder.setTitle("Usuwanie");
-                builder.setMessage("Usunąć?");
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                builder.setTitle(ALERT_DIALOG_TITLE);
+                builder.setMessage(ALERT_DIALOG_TEXT);
+                builder.setIconAttribute(android.R.attr.alertDialogIcon);
+
+                builder.setPositiveButton(ALERT_DIALOG_YES, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int ii) {
-                        adapter.remove(names.get(position));
-                        names.remove(position);
                         db.deleteLocation(names.get(position));
+                        adapter.remove(names.get(position));
                     }
                 });
 
-                builder.setNegativeButton("Nie", new DialogInterface.OnClickListener()
+                builder.setNegativeButton(ALERT_DIALOG_NO, new DialogInterface.OnClickListener()
                         {
                             public void onClick(DialogInterface dialog, int ii) {
                                 dialog.dismiss();
                             }
                         }
                 );
+
                 builder.show();
                 return true;
             }
