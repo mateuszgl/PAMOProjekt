@@ -2,6 +2,7 @@ package com.example.pamo.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,14 +11,14 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.pamo.R;
 import com.example.pamo.entities.Location;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "locations";
-    private static final String TABLE_NAME = "locations";
+    private static final String NAME = "locations";
     private static final String CREATE_TABLE_QUERY = "CREATE TABLE LOCATIONS (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, latitude REAL, longitude REAL, description TEXT)";
     private static final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS LOCATIONS";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM LOCATIONS";
@@ -25,10 +26,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_LATITUDE = "LATITUDE";
     private static final String COLUMN_LONGITUDE = "LONGITUDE";
     private static final String COLUMN_DESCRIPTION = "DESCRIPTION";
+    private static final String WHERE_NAME_STRING = "NAME=?";
 
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -52,10 +54,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_LONGITUDE, location.getLongitude());
         contentValues.put(COLUMN_DESCRIPTION, location.getDescrition());
 
-        db.insert(TABLE_NAME, null, contentValues);
+        db.insert(NAME, null, contentValues);
     }
 
-    public ArrayList<String> getAllNames(){
+    public List<String> getAllNames(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor data = db.rawQuery(SELECT_ALL_QUERY, null);
@@ -89,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteLocation(String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, "NAME=?" ,
+        db.delete(NAME, WHERE_NAME_STRING,
                 new String[] { name });
     }
 }

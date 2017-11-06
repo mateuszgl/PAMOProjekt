@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         final Button listViewActivityButton = (Button) findViewById(R.id.list_view_button);
 
         final Intent mapsActivityIntent = new Intent(this, MapsActivity.class);
-        final Intent listViewActivityIntent = new Intent(this, ListViewActivity.class);
+        final Intent listViewActivityIntent = new Intent(this, LocationListActivity.class);
+
 
         listViewActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override

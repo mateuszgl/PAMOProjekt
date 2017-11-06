@@ -14,9 +14,9 @@ import com.example.pamo.entities.Location;
 public class AddLocationActivity extends AppCompatActivity {
 
     private DatabaseHelper db;
-    private static final String FIELDS_REQUIRED_ERROR = "Musisz wypełnić wszystkie pola.";
-    private static final String NAME_TAKEN_ERROR = "Miejsce o tej nazwie juz istnieje.";
-    private static final String SAVED = "Pomyślnie dodano miejsce.";
+    public static final String FIELDS_REQUIRED_ERROR = "Musisz wypełnić wszystkie pola.";
+    public static final String NAME_TAKEN_ERROR = "Miejsce o tej nazwie juz istnieje.";
+    public static final String SAVED = "Pomyślnie dodano miejsce.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,8 @@ public class AddLocationActivity extends AppCompatActivity {
         final Button addLocationActivityCancelButton = (Button) findViewById(R.id.add_location_activity_cancel_button);
         final Button addLocationActivitySaveButton = (Button) findViewById(R.id.add_location_activity_save_button);
 
-        final double latitude = getIntent().getDoubleExtra("latitude",0);
-        final double longitude = getIntent().getDoubleExtra("longitude",0);
+        final double latitude = getIntent().getDoubleExtra(getString(R.string.latitude_string),0);
+        final double longitude = getIntent().getDoubleExtra(getString(R.string.longitude_string),0);
 
         final Intent mainActivityIntent = new Intent(this, MainActivity.class);
 
@@ -49,7 +49,7 @@ public class AddLocationActivity extends AppCompatActivity {
                 String name = addLocationActivityName.getText().toString();
                 String description = addLocationActivityDescription.getText().toString();
 
-                if(name.equals("")|| description.equals("")) {
+                if(name.equals(getString(R.string.empty_string))|| description.equals("")) {
                     Toast.makeText(AddLocationActivity.this, FIELDS_REQUIRED_ERROR, Toast.LENGTH_SHORT).show();
                 } else {
                     if(db.getByName(name) != null){

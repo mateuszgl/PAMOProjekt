@@ -5,7 +5,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +22,13 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    public static final String EMPTY_STRING = "";
+    public static final String LATITUDE_STRING = "latitude";
+    public static final String LONGITUDE_STRING = "longitude";
     private GoogleMap mMap;
     private LatLng currentSearchLocation;
-    private static final String NO_PREVIOUS_SEARCH_ERROR = "Musisz wyszukać lokalizacje do zapisania.";
-    private static final String NO_SEARCH_QUERY_ERROR = "Podaj nazwę miejsca do wyszukania.";
+    public static final String NO_PREVIOUS_SEARCH_ERROR = "Musisz wyszukać lokalizacje do zapisania.";
+    public static final String NO_SEARCH_QUERY_ERROR = "Podaj nazwę miejsca do wyszukania.";
 
 
     @Override
@@ -56,8 +58,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 if(currentSearchLocation!=null){
-                    addLocationActivityIntent.putExtra("latitude", currentSearchLocation.latitude);
-                    addLocationActivityIntent.putExtra("longitude", currentSearchLocation.longitude);
+                    addLocationActivityIntent.putExtra(LATITUDE_STRING, currentSearchLocation.latitude);
+                    addLocationActivityIntent.putExtra(LONGITUDE_STRING, currentSearchLocation.longitude);
                     startActivity(addLocationActivityIntent);
                 } else {
                     Toast.makeText(MapsActivity.this, NO_PREVIOUS_SEARCH_ERROR, Toast.LENGTH_SHORT).show();
@@ -70,7 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         List<Address> addressList;
 
-        if(!location.equals("")) {
+        if(!location.equals(EMPTY_STRING)) {
             Geocoder geocoder = new Geocoder(this);
 
             try {

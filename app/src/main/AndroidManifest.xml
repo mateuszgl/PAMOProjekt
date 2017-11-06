@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddLocationActivity" />
-        <activity android:name=".ListViewActivity" />
+        <activity android:name=".LocationListActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -30,7 +30,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".LocationDetailsActivity"></activity>
     </application>
 
 </manifest>
