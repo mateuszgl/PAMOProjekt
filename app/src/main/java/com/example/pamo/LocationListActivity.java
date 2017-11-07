@@ -3,8 +3,6 @@ package com.example.pamo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.widget.FrameLayout;
 
 public class LocationListActivity extends FragmentActivity
         implements LocationListFragment.OnLocationSelectedListener {
@@ -23,16 +21,16 @@ public class LocationListActivity extends FragmentActivity
             LocationListFragment firstFragment = new LocationListFragment();
             firstFragment.setArguments(getIntent().getExtras());
 
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, firstFragment).commit();
         }
     }
 
     public void onLocationSelected(String name) {
-        LocationDetailsFragment locationDetailsFragment = (LocationDetailsFragment)
-                getSupportFragmentManager().findFragmentById(R.id.location_details_fragment);
 
-        if (locationDetailsFragment != null) {
+        if (getResources().getConfiguration().orientation == 2) {
+            LocationDetailsFragment locationDetailsFragment = (LocationDetailsFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.location_details_fragment);
             locationDetailsFragment.setLocation(name);
             locationDetailsFragment.displayLocation();
 

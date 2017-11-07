@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.pamo.LocationDetailsActivity">
+    tools:context="com.example.pamo.LocationDetailsFragment">
 
     <TextView
         android:id="@+id/location_details_activity_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/error_message"
+        android:text="@string/empty_string"
         android:textSize="25sp"
         tools:layout_editor_absoluteX="143dp"
         tools:layout_editor_absoluteY="157dp" />
@@ -18,7 +18,7 @@
         android:id="@+id/location_details_activity_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/error_message"
+        android:text="@string/empty_string"
         android:textSize="20sp"
         tools:layout_editor_absoluteX="143dp"
         tools:layout_editor_absoluteY="157dp" />

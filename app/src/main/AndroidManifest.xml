@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddLocationActivity" />
-        <activity android:name=".LocationListActivity" />
+        <activity android:name=".LocationListActivity"
+            android:configChanges="orientation"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

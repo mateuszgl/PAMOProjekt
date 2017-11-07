@@ -1,10 +1,11 @@
 package com.example.pamo;
 
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +20,7 @@ public class LocationListFragment extends ListFragment {
     public static final String ALERT_DIALOG_TEXT = "Usunąć?";
     public static final String ALERT_DIALOG_YES = "Tak";
     public static final String ALERT_DIALOG_NO = "Nie";
-    private OnLocationSelectedListener mCallback;
+    public OnLocationSelectedListener mCallback;
     private DatabaseHelper db;
     private List<String> names;
 
@@ -96,6 +97,7 @@ public class LocationListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+        Log.d("aAA", "onListItemClick: "+position+names.get(position));
         mCallback.onLocationSelected(names.get(position));
         getListView().setItemChecked(position, true);
     }

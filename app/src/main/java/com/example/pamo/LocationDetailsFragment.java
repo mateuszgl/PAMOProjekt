@@ -30,6 +30,7 @@ public class LocationDetailsFragment extends Fragment implements OnMapReadyCallb
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = new DatabaseHelper(getContext());
     }
 
     @Override
@@ -40,9 +41,6 @@ public class LocationDetailsFragment extends Fragment implements OnMapReadyCallb
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        db = new DatabaseHelper(getActivity());
-
 
         locationDetailsActivityName = (TextView) mView.findViewById(R.id.location_details_activity_name);
         locationDetailsActivityDescription = (TextView) mView.findViewById(R.id.location_details_activity_description);
